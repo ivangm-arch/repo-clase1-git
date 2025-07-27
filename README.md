@@ -33,7 +33,7 @@ Una colección de comandos útiles para usar en todos los ejercicios y en el dí
 git init            # Inicializa una vacio repositorio en el actual directorio.
 
 # Clonar repositorio
-git clone https://github.com/ivangm-arch/repo-base-clase1.git     # Clone el repositorio url y crea un directorio con el repo del repositorio
+git clone https://github.com/ivangm-arch/repo-clase1-git.git     # Clone el repositorio url y crea un directorio con el repo del repositorio
 
 # Git (usuario and repositorio nivel) configuraciones
 git config --local user.name "Repo-level Username"            # Establece el nombre de usuario por defecto a nivel repo git.
