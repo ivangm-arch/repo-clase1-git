@@ -1,5 +1,5 @@
 
-# Ejemplos clase 1 Git Pontia Tech
+# Clase 1 Git Pontia Tech - Ejercicios y ejemplos
 
 ## ¿Porqué de estos ejemplos?
 
@@ -11,6 +11,7 @@ Los ejercicios son diseñados para aprendizaje de Git, y para practicar el uso d
 
 Esta es una lista del orden recomendado para realizar los ejercicios.
 
+- [00. Docs](.docs/github-git-cheat-sheet.pdf)
 - [01. Commits](./ejercicios/01.Commit/README.md)
 - [02. Zona staging](./ejercicios/02.Zona-staging/README.md)
 - [03. Trabajar con ramas](./ejercicios/03.Trabajo-con-ramas/README.md)
