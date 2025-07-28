@@ -1,7 +1,7 @@
 # 01. Commits primeros pasos
 
-Este kata le presentará los comandos `git add` y `git commit`.
-Este es un kata muy introductorio. Si ha utilizado `git status`, `git log --oneline --graph`, `git add` y `git commit` de manera extensiva, probablemente debería omitirlo.
+Este ejercicio le presentará los comandos `git add` y `git commit`.
+Este es un ejercicio muy introductorio. Si ha utilizado `git status`, `git log --oneline --graph`, `git add` y `git commit` de manera extensiva, probablemente debería omitirlo.
 Puede consultar la parte inferior de este archivo si aún no ha realizado la configuración básica de git.
 
 
@@ -28,8 +28,6 @@ Puede consultar la parte inferior de este archivo si aún no ha realizado la con
 14. Haz un "commit"
 15. ¿Cómo es el "estado" ahora? ¿El "registro"?
 
-
-
 ## Comandos útiles
 - `git add`
 - `git commit`
@@ -39,7 +37,6 @@ Puede consultar la parte inferior de este archivo si aún no ha realizado la con
 - `git log --oneline`
 - `git log --oneline --graph`
 - `touch filename` (para crear un fichero)
-
 
 ## Configuración inicial de Git
 1. `git config --global user.name "username"`
