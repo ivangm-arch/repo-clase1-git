@@ -5,9 +5,9 @@ Este ejercicio examinará el área de preparación de git.
 
 En git estamos trabajando con tres áreas diferentes:
 
-* El directorio de trabajo donde está realizando sus cambios.
-* El área de preparación donde permanecerán todos los cambios que haya agregado a través de `git add`
-* El repositorio donde termina cada confirmación, haciendo tu historial. Para poner sus cambios preparados aquí, emita el comando `git commit`.
+1. El directorio de trabajo donde está realizando sus cambios.
+2. El área de preparación donde permanecerán todos los cambios que haya agregado a través de `git add`
+3. El repositorio donde termina cada confirmación, haciendo tu historial. Para poner sus cambios preparados aquí, emita el comando `git commit`.
 
 Un archivo puede tener cambios tanto en el directorio de trabajo como en el área de preparación al mismo tiempo.
 Estos cambios no tienen por qué ser los mismos.
