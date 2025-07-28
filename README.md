@@ -4,7 +4,7 @@
 ## ¿Porqué de estos ejemplos?
 
 En este repositorio encontrareis una serie de ejemplos y ejercicios basicos para comenzar a trabajar con Git.
-Los ejercicios son diseñados para aprendizaje de Git, y para practicar el uso de Git.
+Los ejercicios están diseñados para aprendizaje de Git, y para practicar el uso de Git.
 
 
 ## Sugerencia de ejercicios
@@ -57,7 +57,7 @@ git commit -m "I love documentation"    # Hace un nuevo commit con los cambios e
 git commit -a                           # Hace un nuevo commit y automaticamente agregar los cmabios para todos los ficheros conocidos por git
 git commit -am "I still do!"            # Una combinación de las 2 opciones anteriores
 git commit --amend                      # Rehace el commit message del previos commit (sino está subido al remoto)
-                                        #  Nunca cambiar la historia pública
+                                        # Nunca cambiar la historia pública
 git reset <file>                        # Unstage un fichero agregado al area de staging para dejarlo en el directorio-trabajo sin perder ningún cambio.
 git reset --soft [commit_hash]          # Resetea la actual rama. No toca el staging area o el arbol de directorios en nada.
                                         # --hard modo debería descartar todos los cambios.
@@ -82,9 +82,9 @@ git log --follow <file>     # Lista la historia de un fichero más alla de los r
 git log branch2..branch1    # Muestra commits alcanzables desde rama1 pero no en la rama2
 
 # Stash
-git stash                               # Guarda los cambios en un Stash en la rama actual, lo que permite cambiar a una rama diferente sin arrastrar los cambios.
-git stash list                          # Lista de stashs.
-git stash apply <stash>                 # Aplica el stash con nombre <stash>, si no incluimos el nombre aplica el ultimo de la lista.
+git stash                 # Guarda los cambios en un Stash en la rama actual, lo que permite cambiar a una rama diferente sin arrastrar los cambios.
+git stash list            # Lista de stashs.
+git stash apply <stash>   # Aplica el stash con nombre <stash>, si no incluimos el nombre aplica el ultimo de la lista.
 
 
 # Trabajar con ramas (Branches)
@@ -95,15 +95,15 @@ git branch -d my-branch    # Elimina la rama my-branch solo si se ha mergeado co
 git branch -D my-branch    # Fuarza la eliminación de la rama, aunque no se haya mergeado con otra rama
 
 # Merging
-git merge master         # hace un merge de la rama master sobre la rama en la que estes trabajando
+git merge master         # Hace un merge de la rama master sobre la rama en la que estes trabajando
 git rebase master        # Mueve los commits de tu rama actual para reaplicarlos sobre la punta más reciente de la rama master
 
 # Remotes
-git remote 						# Muestra tus remote actuales
-git remote -v					# Muestra tus remotes actuales y sus URLs
-git push 						# Envía tus commits locales de la rama actual al repositorio remoto
-git push -u origin my-branch  	# Envía la rama local my-branch al repositorio remoto llamado origin y establece esa rama remota como la rama por defecto, para que en futuros pushs o pulls puedas usar solo git push o git pull sin especificar la rama from origin.
-git pull						# Descarga los cambios de la rama remota aplicandolos sobre tu rama local
+git remote                   # Muestra tus remote actuales
+git remote -v                # Muestra tus remotes actuales y sus URLs
+git push                     # Envía tus commits locales de la rama actual al repositorio remoto
+git push -u origin my-branch # Envía la rama local my-branch al repositorio remoto llamado origin y establece esa rama remota como la rama por defecto, para que en futuros pushs o pulls puedas usar solo git push o git pull sin especificar la rama from origin.
+git pull                     # Descarga los cambios de la rama remota aplicandolos sobre tu rama local
 
 # Mover ficheros bajo version control
 git rm <path/to/the/file>                 # Elimina un fichero o directorio y tambien de la zona stage 
