@@ -3,7 +3,7 @@
 
 ## ¿Porqué de estos ejemplos?
 
-En este repositorio encontrareis una seria de ejemplos y ejercicios basicos para comenzar a trabajar con Git.
+En este repositorio encontrareis una serie de ejemplos y ejercicios basicos para comenzar a trabajar con Git.
 Los ejercicios son diseñados para aprendizaje de Git, y para practicar el uso de Git.
 
 
