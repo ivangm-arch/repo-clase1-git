@@ -1,5 +1,5 @@
 
-# Clase 1 Git Pontia Tech - Ejercicios y ejemplos
+# Clase 1 - 18/09/2025 -  Git Pontia Tech - Ejercicios y ejemplos
 
 ## ¿Porqué de estos ejemplos?
 
