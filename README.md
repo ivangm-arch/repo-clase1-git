@@ -1,130 +1,243 @@
+# Clase 1 Git - Ejercicios y ejemplos
 
-# Clase 1 Git Pontia Tech - Ejercicios y ejemplos
+Repositorio de apoyo para una primera clase práctica de Git y GitHub.
 
-## ¿Por qué estos ejemplos?
+El objetivo no es memorizar comandos, sino entender el flujo de trabajo básico de Git y practicarlo con ejercicios guiados.
 
-En este repositorio encontraréis una serie de ejemplos y ejercicios básicos para comenzar a trabajar con Git.
-
-Los ejercicios están diseñados para aprender Git y practicar su uso de forma progresiva.
+---
 
 ## Git vs GitHub
 
-- Git es una herramienta de control de versiones.
-- GitHub es una plataforma para alojar repositorios Git.
+- **Git** es una herramienta de control de versiones que funciona en local.
+- **GitHub** es una plataforma para alojar repositorios Git, colaborar, revisar cambios y trabajar con Pull Requests.
 
-## Sugerencia de ejercicios
+Una idea clave para la clase:
 
-Esta es una lista del orden recomendado para realizar los ejercicios.
+> Git es la herramienta. GitHub es una plataforma que usa Git.
 
-- [00. Docs](./docs/github-git-cheat-sheet.pdf)
+---
+
+## Objetivos de la clase
+
+Al finalizar estos ejercicios deberías poder:
+
+- Clonar un repositorio.
+- Consultar el estado del repositorio.
+- Preparar cambios en el área de staging.
+- Crear commits con mensajes claros.
+- Crear y cambiar de ramas.
+- Fusionar ramas con `merge`.
+- Resolver conflictos sencillos.
+- Entender cuándo usar `revert`, `reset` y `rebase`.
+- Crear una Pull Request en GitHub.
+
+---
+
+## Modelo mental básico
+
+Git trabaja principalmente con tres zonas:
+
+```text
+Directorio de trabajo -> Área de staging -> Historial de commits
+```
+
+- **Directorio de trabajo**: archivos que estás editando.
+- **Área de staging**: cambios preparados para el próximo commit.
+- **Historial de commits**: versiones confirmadas del proyecto.
+
+---
+
+## Orden recomendado de ejercicios
+
+- [00. Documentación: chuleta Git](./docs/github-git-cheat-sheet.pdf)
 - [01. Commits](./ejercicios/01.Commit/README.md)
 - [02. Área de staging](./ejercicios/02.Zona-staging/README.md)
-- [03. Trabajar con ramas](./ejercicios/03.Trabajo-con-ramas/README.md)
-- [04. Fusionar ramas (Fast-Forward)](./ejercicios/04.Mergear-ramas/README.MD)
-- [05. Fusionar ramas (3-way merge)](./ejercicios/05.Anexar-ramas-otras-formas/README.md)
+- [03. Trabajo con ramas](./ejercicios/03.Trabajo-con-ramas/README.md)
+- [04. Merge Fast-Forward](./ejercicios/04.Mergear-ramas/README.md)
+- [05. Merge con commit de fusión](./ejercicios/05.Anexar-ramas-otras-formas/README.md)
 - [06. Resolver conflictos](./ejercicios/06.Anexar-conflictos/README.md)
 - [07. Rebase de ramas](./ejercicios/07.Rebase-rama/README.md)
 - [08. Revertir cambios](./ejercicios/08.Revertir-cambios/README.md)
 - [09. Deshacer cambios con reset](./ejercicios/09.Reset/README.md)
 - [10. Pull Request](./ejercicios/10.Pull-Request/README.md)
 
+---
+
+## Flujo básico diario
+
+```bash
+git status
+git add <archivo>
+git commit -m "Mensaje descriptivo"
+git push
+```
+
+Antes de cada comando importante, usa:
+
+```bash
+git status
+```
+
+Para entender el historial, usa:
+
+```bash
+git log --oneline --graph --all
+```
+
+---
+
+## Configuración inicial recomendada
+
+```bash
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu@email.com"
+git config --global init.defaultBranch main
+```
+
+Opcionalmente, configura un editor:
+
+```bash
+git config --global core.editor "code --wait"
+```
+
+En Windows, con Notepad:
+
+```bash
+git config --global core.editor notepad
+```
+
+---
 
 ## Chuleta de comandos
 
-Una colección de comandos útiles para usar en todos los ejercicios y en el día a día:
+### Inicializar y clonar repositorios
 
-```shell
-# Inicializar un repositorio vacío
-git init            # Inicializa un repositorio vacío en el directorio actual.
-
-# Clonar repositorio
-git clone https://github.com/ivangm-arch/repo-clase1-git.git     # Clona el repositorio remoto y crea un directorio local con su contenido
-
-# Configuración de Git a nivel usuario y repositorio
-git config --local user.name "Tu Nombre"                      # Establece el nombre de usuario por defecto a nivel repo git.
-git config --local user.email "tu@email.com"                  # Establece el email de usuario por defecto a nivel repo git.
-                                                              #--global -> Establece el parámetro a nivel usuario en ~/.gitconfig
-                                                              # --local -> Establece el parametro a nivel repositorio .git/config
-
-
-# Ver cambios en local
-git status                  # Muestra el estado del directorio-trabajo
-git diff                    # Muestra cambios en el actual directorio-trabajo (aún no staged)
-git diff --cached           # Muestra cambios actualmente staged para commit
-
-# Agregar ficheros al staging (antes de hacer commit)
-git add myfile.txt          # Agregar myfile.txt al stage
-git add .                   # Agregar el directorio de trabajo completo al stage
-
-# Hacer commits
-git commit                              # Hace un nuevo commit con los cambios en el area de staging. Abrirá el editor para agregar un mensaje.
-git commit -m "I love documentation"    # Hace un nuevo commit con los cambios en el area de staging. Usa el mensaje dado.
-git commit -a                           # Hace un nuevo commit y automaticamente agregar los cmabios para todos los ficheros conocidos por git
-git commit -am "I still do!"            # Una combinación de las 2 opciones anteriores
-git commit --amend                      # Rehace el commit message del previos commit (sino está subido al remoto)
-                                        # Nunca cambiar la historia pública
-git reset <file>                        # Unstage un fichero agregado al area de staging para dejarlo en el directorio-trabajo sin perder ningún cambio.
-git reset --soft [commit_hash]          # Resetea la actual rama. No toca el staging area o el arbol de directorios en nada.
-                                        # --hard modo debería descartar todos los cambios.
-
-# Configurando un diferente editor
-- `git config --global core.editor nano`
-
-## Para Windows:
-- Usando Notepad:
-`git config --global core.editor notepad`
-
-- O utilizar Notepad++:
-`git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin"`
-
-
-# Revisar historial
-git log                     # Muestra el historial de commits
-git log --oneline           # Formatear commits a una single linea (atajo para --pretty=oneline  --abbrev-commit)
-git log --graph             # Mostrar un grafico de los commits y ramas
-git log --pretty=fuller     # Ver la historia de los comits de forma detallada con autor y detalles del commit.
-git log --follow <file>     # Lista la historia de un fichero más alla de los renombradosrenames
-git log branch2..branch1    # Muestra commits alcanzables desde rama1 pero no en la rama2
-
-# Stash
-git stash                 # Guarda los cambios en un Stash en la rama actual, lo que permite cambiar a una rama diferente sin arrastrar los cambios.
-git stash list            # Lista de stashs.
-git stash apply <stash>   # Aplica el stash con nombre <stash>, si no incluimos el nombre aplica el ultimo de la lista.
-
-
-# Trabajar con ramas (Branches)
-git branch my-branch       # Crea una nueva rama my-branch
-git switch my-branch       # Cambia a otra rama para trabajar en ella
-git switch -c my-branch    # Crea una nueva rama llamada my-branch y cambia a esa rama nueva
-git branch -d my-branch    # Elimina la rama my-branch solo si se ha mergeado con otra rama
-git branch -D my-branch    # Fuerza la eliminación de la rama, aunque no se haya fusionado con otra rama
-
-# Merging
-git merge master         # Hace un merge de la rama master sobre la rama en la que estes trabajando
-git rebase master        # Mueve los commits de tu rama actual para reaplicarlos sobre la punta más reciente de la rama master
-
-# Remotes
-git remote                   # Muestra tus remote actuales
-git remote -v                # Muestra tus remotes actuales y sus URLs
-git push                     # Envía tus commits locales de la rama actual al repositorio remoto
-git push -u origin my-branch # Envía la rama local my-branch al repositorio remoto origin y la configura como rama de seguimiento por defecto.
-git pull                     # Descarga los cambios de la rama remota y los aplica sobre tu rama local
-
-# Mover ficheros bajo version control
-git rm <path/to/the/file>                 # Elimina un fichero o directorio y lo quita también del área de staging 
-git mv <source/file> <destination/file>   # Mueve o renombra un fichero o directorio y actualiza el área de staging
-
-# Aliases - Existe la posibilidad de crear Alias de comandos utilizados con frecuencia
-
-# Añadir un alias "sw" para "switch"
-git config --global alias.sw "switch"
-# Uso:
-git sw master     # Realmente has hecho "git switch master"
-
-## Logging
-git log --graph --online --all # Muestra el historial de commits de todas las ramas en un formato compacto y visualmente gráfico
-## Añadir un alias llamado "lol" (log oneline..) muestra lo anterior
-git config --global alias.lol "log --graph --oneline --all"
-## Usando el alias
-git lol     # Realmente has hecho "git log --graph --oneline --all"
+```bash
+git init
+git clone https://github.com/ivangm-arch/repo-clase1-git.git
 ```
+
+### Ver estado y diferencias
+
+```bash
+git status
+git diff
+git diff --staged
+```
+
+### Preparar y confirmar cambios
+
+```bash
+git add archivo.txt
+git add .
+git commit -m "Añade archivo de ejemplo"
+git commit --amend
+```
+
+> Usa `git commit --amend` solo si el commit todavía no se ha compartido con otras personas.
+
+### Restaurar cambios
+
+```bash
+git restore archivo.txt
+git restore --staged archivo.txt
+```
+
+### Revisar historial
+
+```bash
+git log
+git log --oneline
+git log --oneline --graph --all
+git log --follow archivo.txt
+```
+
+### Trabajar con ramas
+
+```bash
+git branch
+git switch main
+git switch -c mi-rama
+git branch -d mi-rama
+git branch -D mi-rama
+```
+
+### Fusionar y reorganizar historial
+
+```bash
+git merge mi-rama
+git rebase main
+```
+
+### Remotos
+
+```bash
+git remote -v
+git push
+git push -u origin mi-rama
+git pull
+```
+
+### Mover o eliminar ficheros versionados
+
+```bash
+git rm archivo.txt
+git mv origen.txt destino.txt
+```
+
+### Stash
+
+```bash
+git stash
+git stash list
+git stash apply stash@{0}
+git stash pop
+```
+
+### Alias útiles
+
+```bash
+git config --global alias.sw switch
+git config --global alias.lol "log --graph --oneline --all"
+```
+
+Uso:
+
+```bash
+git sw main
+git lol
+```
+
+---
+
+## Buenas prácticas
+
+### Mensajes de commit poco útiles
+
+```text
+fix
+cambios
+update
+asd
+```
+
+### Mensajes de commit recomendados
+
+```text
+Añade archivo de saludo
+Corrige conflicto en frutas.txt
+Actualiza instrucciones del ejercicio de ramas
+```
+
+---
+
+## Recomendación para clase
+
+Después de cada bloque, pide a los alumnos que ejecuten:
+
+```bash
+git status
+git log --oneline --graph --all
+```
+
+Eso refuerza el modelo mental de Git y evita que ejecuten comandos sin entender el estado del repositorio.

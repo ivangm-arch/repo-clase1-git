@@ -1,33 +1,125 @@
+# 05. Merge con commit de fusión
 
-# 05. Mergear ramas otras formas
+## Objetivo
 
-## La tarea
+Entender qué ocurre cuando dos ramas han avanzado de forma independiente y Git no puede hacer Fast-Forward.
 
-Nuevamente estas en tu propia rama, esta vez haremos un poco de malabarismo con las ramas para mostrar cuán livianas son las ramas en git.
+En ese caso, Git crea un commit de merge para unir ambas líneas de trabajo.
 
-1. Crear una rama de nombre `greeting` y pasate a ella
-2. Crea un fichero `greeting.txt` para indicar tu saludo favorito
-3. Agrega `greeting.txt` al area de staging
-4. Realiza el commit
-5. Vuelve a la rama `main`
-6. Crea un fichero `README.md` con información sobre el repositorio. Un par de lineas
-7. Agrega el fichero `README.md` al area de staging y realiza el commit
-8. Cual es la salida del comando `git log --oneline --graph --all`?
-9. Haz la diferencia entre ambas ramas
-10. Anexa la rama `greeting` en la rama `main`
-11. Cual es la salida del comando `git log --oneline --graph --all` ahora? Observa la diferencia, ahora existe un **commit extra** con el nombre "Merge branch 'greeting'"
+---
 
-## Comandos útiles
+## Conceptos clave
 
-- `git branch`
-- `git branch <branch-name>`
-- `git branch -d <branch-name>`
-- `git switch <branch-name>`
-- `git switch -c <branch-name>`
-- `git branch -v`
-- `git add`
-- `git commit`
-- `git commit -m`
-- `git merge <branchA> <branchB>`
-- `git diff <branchA> <branchB>`
-- `git log --oneline --graph --all`
+- **Fast-Forward**: Git solo mueve el puntero de la rama.
+- **Merge commit**: Git crea un nuevo commit que une dos historiales.
+- **Historia divergente**: dos ramas tienen commits diferentes desde un punto común.
+
+---
+
+## Tarea guiada
+
+### 1. Asegúrate de estar en main
+
+```bash
+git switch main
+```
+
+Si tu rama principal se llama `master`, usa:
+
+```bash
+git switch master
+```
+
+---
+
+### 2. Crea una rama nueva
+
+```bash
+git switch -c feature/greeting
+```
+
+---
+
+### 3. Crea un commit en la rama
+
+```bash
+echo "Hola desde feature/greeting" > greeting.txt
+git add greeting.txt
+git commit -m "Añade saludo desde rama feature"
+```
+
+---
+
+### 4. Vuelve a main
+
+```bash
+git switch main
+```
+
+---
+
+### 5. Crea un commit diferente en main
+
+```bash
+echo "Cambio independiente en main" > main-change.txt
+git add main-change.txt
+git commit -m "Añade cambio independiente en main"
+```
+
+---
+
+### 6. Visualiza la divergencia
+
+```bash
+git log --oneline --graph --all
+```
+
+Responde:
+
+- ¿Ves dos líneas de historial?
+- ¿Qué commit tienen en común ambas ramas?
+
+---
+
+### 7. Fusiona la rama feature
+
+```bash
+git merge feature/greeting
+```
+
+Si Git abre un editor para el mensaje del merge, guarda y cierra el editor.
+
+---
+
+### 8. Comprueba el historial
+
+```bash
+git log --oneline --graph --all
+```
+
+Responde:
+
+- ¿Aparece un commit de merge?
+- ¿En qué se diferencia de un Fast-Forward?
+
+---
+
+## Reto adicional
+
+Repite el ejercicio con otra rama, pero fuerza que Git cree un commit de merge incluso cuando podría hacer Fast-Forward:
+
+```bash
+git merge --no-ff nombre-de-la-rama
+```
+
+---
+
+## Comandos usados
+
+```bash
+git switch -c <rama>
+git switch <rama>
+git merge <rama>
+git merge --no-ff <rama>
+git log --oneline --graph --all
+```

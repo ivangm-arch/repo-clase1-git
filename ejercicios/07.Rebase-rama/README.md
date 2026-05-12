@@ -1,102 +1,168 @@
+# 07. Rebase de ramas
 
-# 07. Rebase una rama
+## Objetivo
 
-Este ejercicio muestra cómo funciona `git rebase`, comparado con `merge`, y cómo mantener un historial de commits más lineal. También incluye un conflicto simple durante el rebase.
+Comprender cómo funciona `git rebase` y en qué se diferencia de `git merge`.
 
+`git rebase` reaplica los commits de una rama sobre otra base, creando una historia más lineal.
 
-- Usar `git rebase` para aplicar commits de una rama sobre otra.
-- Comparar `git rebase` con `git merge`.
-- Resolver un conflicto durante el rebase.
+---
 
+## Advertencia importante
 
-## La tarea
-1. Crear commit base en main
-```bash copy
-echo "Línea 1" > archivo.txt
-git add archivo.txt
-git commit -m "Commit 1: Línea inicial"
+`git rebase` reescribe historial.
+
+Regla práctica:
+
+> No hagas rebase de ramas compartidas con otras personas salvo que el equipo lo haya acordado.
+
+Es adecuado para limpiar una rama local antes de abrir una Pull Request.
+
+---
+
+## Merge vs Rebase
+
+| Característica | `git merge` | `git rebase` |
+|---|---|---|
+| Conserva la historia real | Sí | No exactamente |
+| Crea commit de merge | A veces | No |
+| Reescribe commits | No | Sí |
+| Historial lineal | No siempre | Sí |
+| Riesgo en ramas compartidas | Bajo | Alto |
+
+---
+
+## Tarea guiada
+
+### 1. Asegúrate de estar en main
+
+```bash
+git switch main
 ```
-2. Crear rama `feature` y hacer dos commits
-```bash copy
-git checkout -b feature
 
-echo "Línea 2 (feature)" >> archivo.txt
-git commit -am "Commit 2: Línea 2 desde feature"
+Si tu rama principal se llama `master`, usa:
 
-echo "Línea 3 (feature)" >> archivo.txt
-git commit -am "Commit 3: Línea 3 desde feature"
+```bash
+git switch master
 ```
-3. Volver a `main` y hacer un cambio
-```bash copy
-git checkout main
 
-echo "Línea 2 (main)" >> archivo.txt
-git commit -am "Commit 4: Línea 2 desde main"
+---
+
+### 2. Crea una rama de trabajo
+
+```bash
+git switch -c feature/rebase-demo
 ```
-4. Mostrar historial antes del rebase
-```bash copy
+
+---
+
+### 3. Crea dos commits en la rama
+
+```bash
+echo "Línea feature 1" > rebase-demo.txt
+git add rebase-demo.txt
+git commit -m "Añade primera línea en feature"
+
+echo "Línea feature 2" >> rebase-demo.txt
+git add rebase-demo.txt
+git commit -m "Añade segunda línea en feature"
+```
+
+---
+
+### 4. Vuelve a main
+
+```bash
+git switch main
+```
+
+---
+
+### 5. Crea un commit nuevo en main
+
+```bash
+echo "Cambio nuevo en main" > main-rebase.txt
+git add main-rebase.txt
+git commit -m "Añade cambio nuevo en main"
+```
+
+---
+
+### 6. Observa la divergencia
+
+```bash
 git log --oneline --graph --all
 ```
-Deberías ver algo como esto
+
+---
+
+### 7. Vuelve a la rama feature
+
+```bash
+git switch feature/rebase-demo
 ```
-* 76e9ae0 (HEAD -> main) Commit 4: Línea 2 desde main
-| * e0db584 (feature) Commit 3: Línea 3 desde feature
-| * 0665459 Commit 2: Línea 2 desde feature
-|/
-* 3d4de1f Commit 1: Línea inicial
-* bfa5844 (origin/main, origin/HEAD) Update README.md
-*   5791047 Merge branch 'main' of https://github.com/ivangm-arch/repo-base-clase1
-```
-5. Hacer `rebase` de la rama `feature` sobre `main`
-```bash copy
-git checkout feature
+
+---
+
+### 8. Reaplica la rama sobre main
+
+```bash
 git rebase main
 ```
-Si hay conflictos Git lo mostrará
-```bash
-CONFLICT (content): Merge conflict in archivo.txt
-```
 
-6. Abre `archivo.txt` y resuelve el conflicto (por ejemplo, uniendo ambos cambios).
-```text copy
-Línea 1
-Línea 2 (main)
-Línea 2 (feature)
-Línea 3 (feature)
-```
-7. Después de resolver, confirma los cambios
-```bash copy
-git add archivo.txt
+Si aparecen conflictos:
+
+1. Edita los archivos afectados.
+2. Añade los archivos resueltos.
+3. Continúa el rebase.
+
+```bash
+git add <archivo>
 git rebase --continue
 ```
-8. Revisa el log
-```bash copy
+
+Para cancelar el rebase:
+
+```bash
+git rebase --abort
+```
+
+---
+
+### 9. Visualiza el historial final
+
+```bash
 git log --oneline --graph --all
 ```
-Ahora el historial será más lineal, como si los commits de `feature` se hubieran creado después del último commit de `main`
 
+Responde:
 
+- ¿La historia parece más lineal?
+- ¿Los commits de la rama tienen nuevos hashes?
 
-## Comandos útiles
-- `git branch`
-- `git rebase`
-- `git checkout -b`
-- `git merge`
-- `git status`
-- `git mergetool --tool=emerge`
-- `git mergetool --tool=vimdiff`
-- `git add`
-- `git commit`
+---
 
-## 📊 Comparación: Merge vs Rebase
+### 10. Fusiona en main con Fast-Forward
 
-| Característica                     | `git merge`                                          | `git rebase`                                          |
-|-----------------------------------|------------------------------------------------------|-------------------------------------------------------|
-| Historial                         | Crea un commit de merge y mantiene ramas separadas  | Reescribe el historial para que parezca lineal       |
-| Commits nuevos                    | No cambia los commits existentes                     | Reaplica los commits sobre la nueva base              |
-| Claridad del historial            | Puede volverse complejo con muchas ramas             | Más limpio y fácil de seguir                         |
-| Conflictos                        | Puede haber conflictos al fusionar                   | También puede haber conflictos en cada commit reaplicado |
-| Uso recomendado                   | En proyectos colaborativos donde importa conservar la historia real | Para limpieza de historial antes de subir una feature branch |
-| Riesgo de sobrescribir historia   | Bajo                                                  | Alto si se hace en ramas compartidas                 |
-| Commit extra                      | Sí, crea un commit de merge                          | No, solo reescribe los commits existentes             |
+```bash
+git switch main
+git merge feature/rebase-demo
+```
 
+---
+
+## Reto adicional
+
+Repite este ejercicio usando `git merge` en vez de `git rebase` y compara los historiales.
+
+---
+
+## Comandos usados
+
+```bash
+git rebase main
+git rebase --continue
+git rebase --abort
+git merge <rama>
+git log --oneline --graph --all
+```

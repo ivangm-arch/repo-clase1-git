@@ -1,35 +1,138 @@
-# 04. Mergear ramas tipo Fast-Forward
+# 04. Merge Fast-Forward
 
-## La tarea
+## Objetivo
 
-Nuevamente estas en tu propia rama, esta vez haremos un poco de malabarismo con las ramas para mostrar cuán livianas son las ramas en git.
+Comprender cómo funciona un merge Fast-Forward.
 
-1. Crear a (feature)branch llamada `feature/uppercase` (si, `feature/uppercase` es un nombre perfectamente válido para una rama y además es una convención común).
-2. Pasate a esa nueva rama
-3. Cual es la salida de `git status`?
-4. Edita el fichero `hello_world.txt` para cambiar el texto a mayúsculas
-5. Agrega `hello_world.txt` al staging area y realiza el commit
-6. Cual es la salida de `git branch`?
-7. Cual es la salida de `git log --oneline --graph --all`
+Un merge Fast-Forward ocurre cuando la rama destino no tiene commits nuevos desde que se creó la rama que vamos a fusionar.
 
-   *Recuerde: desea actualizar la rama maestra para que también tenga todos los cambios actualmente en la rama de features. El comando 'git merge [nombre de rama]' toma una rama como argumento del cual toma cambios. La rama a la que apunta HEAD (rama actual) se actualiza para incluir también estos cambios.*
+En este caso Git no necesita crear un commit de merge. Solo mueve el puntero de la rama destino hacia adelante.
 
-8. Pasa a la rama `main`
-9. Usa comando `cat` para ver el contenido del fichero `hello_world.txt`
-10. Muestra la diferencia entre las ramas
-11. Anexa los cambios entre las ramas (recuerda estás en la rama master)
-12. Usa comando `cat` para ver el contenido del fichero `hello_world.txt`
-13. Borra la rama `feature/uppercase`
+---
 
-## Comandos útiles
+## Situación inicial
 
-- `git branch`
-- `git branch <branch-name>`
-- `git branch -d <branch-name>`
-- `git switch`
-- `git branch -v`
-- `git add`
-- `git commit`
-- `git commit -m`
-- `git merge <branch>`
-- `git diff <branchA> <branchB>`
+Queremos hacer un cambio en una rama y fusionarlo después en `main`.
+
+```text
+main
+  \
+   feature/mayusculas
+```
+
+---
+
+## Tarea guiada
+
+### 1. Asegúrate de estar en main
+
+```bash
+git switch main
+```
+
+Si tu rama principal se llama `master`, usa:
+
+```bash
+git switch master
+```
+
+---
+
+### 2. Crea una rama de trabajo
+
+```bash
+git switch -c feature/mayusculas
+```
+
+---
+
+### 3. Crea o modifica un archivo
+
+```bash
+echo "hola mundo" > hello_world.txt
+```
+
+---
+
+### 4. Crea un commit en la rama
+
+```bash
+git add hello_world.txt
+git commit -m "Añade saludo en minúsculas"
+```
+
+---
+
+### 5. Cambia el texto a mayúsculas
+
+```bash
+echo "HOLA MUNDO" > hello_world.txt
+git add hello_world.txt
+git commit -m "Convierte saludo a mayúsculas"
+```
+
+---
+
+### 6. Visualiza el historial
+
+```bash
+git log --oneline --graph --all
+```
+
+---
+
+### 7. Vuelve a main
+
+```bash
+git switch main
+```
+
+---
+
+### 8. Fusiona la rama
+
+```bash
+git merge feature/mayusculas
+```
+
+---
+
+### 9. Comprueba el resultado
+
+```bash
+git log --oneline --graph --all
+cat hello_world.txt
+```
+
+Responde:
+
+- ¿Se ha creado un commit de merge?
+- ¿Por qué Git pudo hacer Fast-Forward?
+
+---
+
+## Reto adicional
+
+Elimina la rama ya fusionada:
+
+```bash
+git branch -d feature/mayusculas
+```
+
+Comprueba el historial:
+
+```bash
+git log --oneline --graph --all
+```
+
+---
+
+## Comandos usados
+
+```bash
+git switch -c <rama>
+git switch <rama>
+git merge <rama>
+git branch -d <rama>
+git log --oneline --graph --all
+```

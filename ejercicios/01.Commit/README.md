@@ -1,42 +1,175 @@
-# 01. Commits primeros pasos
+# 01. Commits: primeros pasos
 
-Este ejercicio le presentará los comandos `git add` y `git commit`.
-Este es un ejercicio muy introductorio. Si ha utilizado `git status`, `git log --oneline --graph`, `git add` y `git commit` de manera extensiva, probablemente debería omitirlo.
-Puede consultar la parte inferior de este archivo si aún no ha realizado la configuración básica de git.
+## Objetivo
 
-## La Tarea
+Practicar el flujo básico de Git:
 
-0. Usa `git status` revisar en que rama estas.
-1. Utilice `git status` para ver en qué rama se encuentra.
-2. ¿Cómo se ve "git log"?
-3. Crea un archivo
-4. ¿Cómo se ve ahora el resultado de "git status"?
-5. `add` el archivo al área de preparación
-6. ¿Cómo se ve ahora el "estado de git"?
-7. `commit` el archivo en el repositorio
-8. ¿Cómo se ve ahora "git status"?
-9. Cambie el contenido del archivo que creó anteriormente.
-10. ¿Cómo se ve ahora el "estado de git"?
-11. `add` el cambio de archivo
-12. ¿Cómo se ve ahora el "estado de git"?
-13. Cambia el archivo nuevamente.
-14. Haz un "commit"
-15. ¿Cómo es el "estado" ahora? ¿El "registro"?
+```text
+Directorio de trabajo -> Área de staging -> Commit
+```
 
-## Comandos útiles
-- `git add`
-- `git commit`
-- `git commit -m "My commit message"`
-- `git log`
-- `git log -n 5`
-- `git log --oneline`
-- `git log --oneline --graph`
-- `touch filename` (para crear un fichero)
+Al terminar este ejercicio deberías entender:
 
-## Configuración inicial de Git
-1. `git config --global user.name "username"`
-2. `git config --global user.email "username@example.com`
+- qué detecta `git status`,
+- qué hace `git add`,
+- qué guarda `git commit`,
+- cómo consultar el historial con `git log`.
 
-Otras opciones de edición:
-- `git config --global core.editor "code --wait"`
-- `git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -multiInst"` (windows)
+---
+
+## Preparación
+
+Comprueba tu configuración de Git:
+
+```bash
+git config --global user.name
+git config --global user.email
+```
+
+Si no aparece tu nombre o tu email, configúralos:
+
+```bash
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu@email.com"
+```
+
+---
+
+## Tarea guiada
+
+### 1. Consulta el estado del repositorio
+
+```bash
+git status
+```
+
+Responde:
+
+- ¿En qué rama estás?
+- ¿Hay cambios pendientes?
+
+---
+
+### 2. Consulta el historial
+
+```bash
+git log --oneline --graph --all
+```
+
+Responde:
+
+- ¿Cuántos commits ves?
+- ¿Cuál es el commit más reciente?
+
+---
+
+### 3. Crea un archivo nuevo
+
+```bash
+echo "Hola Git" > saludo.txt
+```
+
+En Windows PowerShell también puedes usar:
+
+```powershell
+"Hola Git" > saludo.txt
+```
+
+---
+
+### 4. Comprueba el estado
+
+```bash
+git status
+```
+
+Responde:
+
+- ¿Git detecta el archivo?
+- ¿Está preparado para commit?
+
+---
+
+### 5. Añade el archivo al área de staging
+
+```bash
+git add saludo.txt
+```
+
+---
+
+### 6. Comprueba el estado de nuevo
+
+```bash
+git status
+```
+
+Responde:
+
+- ¿Qué ha cambiado respecto al paso anterior?
+
+---
+
+### 7. Crea el primer commit
+
+```bash
+git commit -m "Añade archivo de saludo"
+```
+
+---
+
+### 8. Revisa el historial
+
+```bash
+git log --oneline --graph --all
+```
+
+Responde:
+
+- ¿Aparece tu nuevo commit?
+- ¿Qué mensaje tiene?
+
+---
+
+### 9. Modifica el archivo
+
+```bash
+echo "Estoy aprendiendo Git" >> saludo.txt
+```
+
+---
+
+### 10. Repite el flujo completo
+
+```bash
+git status
+git add saludo.txt
+git commit -m "Actualiza saludo"
+git log --oneline --graph --all
+```
+
+---
+
+## Reto adicional
+
+Crea un segundo archivo llamado `notas.txt`, añade dos líneas de contenido y crea un commit con un mensaje descriptivo.
+
+Ejemplo:
+
+```bash
+echo "Nota 1" > notas.txt
+echo "Nota 2" >> notas.txt
+git add notas.txt
+git commit -m "Añade notas del curso"
+```
+
+---
+
+## Comandos usados
+
+```bash
+git status
+git add <archivo>
+git commit -m "Mensaje"
+git log --oneline --graph --all
+```
