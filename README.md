@@ -30,6 +30,7 @@ Al finalizar estos ejercicios deberías poder:
 - Resolver conflictos sencillos.
 - Entender cuándo usar `revert`, `reset` y `rebase`.
 - Crear una Pull Request en GitHub.
+- Usar `stash`, `reflog` y `cherry-pick` en escenarios reales.
 
 ---
 
@@ -60,6 +61,7 @@ Directorio de trabajo -> Área de staging -> Historial de commits
 - [08. Revertir cambios](./ejercicios/08.Revertir-cambios/README.md)
 - [09. Deshacer cambios con reset](./ejercicios/09.Reset/README.md)
 - [10. Pull Request](./ejercicios/10.Pull-Request/README.md)
+- [Contenido Git extra: stash, reflog y cherry-pick](./contenido-git-extra/README.md)
 
 ---
 
@@ -192,6 +194,15 @@ git stash
 git stash list
 git stash apply stash@{0}
 git stash pop
+```
+
+### Recuperación y commits concretos
+
+```bash
+git reflog
+git switch -c recuperacion <hash>
+git cherry-pick <hash>
+git cherry-pick --abort
 ```
 
 ### Alias útiles
