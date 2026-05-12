@@ -18,12 +18,6 @@ Orden recomendado:
 2. Después de haber visto merge y conflictos.
 3. Antes o después del ejercicio de Pull Request, según el ritmo de la clase.
 
-Recomendación docente:
-
-- `git stash`: hacerlo como ejercicio obligatorio.
-- `git reflog`: hacerlo como ejercicio obligatorio si se ha explicado `reset`.
-- `git cherry-pick`: dejarlo como ejercicio avanzado o bonus.
-
 ---
 
 # 01. Git stash
