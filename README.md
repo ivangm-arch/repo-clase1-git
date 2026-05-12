@@ -1,11 +1,16 @@
 
 # Clase 1 Git Pontia Tech - Ejercicios y ejemplos
 
-## ¿Porqué de estos ejemplos?
+## ¿Por qué estos ejemplos?
 
-En este repositorio encontrareis una serie de ejemplos y ejercicios basicos para comenzar a trabajar con Git.
-Los ejercicios están diseñados para aprendizaje de Git, y para practicar el uso de Git.
+En este repositorio encontraréis una serie de ejemplos y ejercicios básicos para comenzar a trabajar con Git.
 
+Los ejercicios están diseñados para aprender Git y practicar su uso de forma progresiva.
+
+## Git vs GitHub
+
+- Git es una herramienta de control de versiones.
+- GitHub es una plataforma para alojar repositorios Git.
 
 ## Sugerencia de ejercicios
 
@@ -13,14 +18,14 @@ Esta es una lista del orden recomendado para realizar los ejercicios.
 
 - [00. Docs](./docs/github-git-cheat-sheet.pdf)
 - [01. Commits](./ejercicios/01.Commit/README.md)
-- [02. Zona staging](./ejercicios/02.Zona-staging/README.md)
+- [02. Área de staging](./ejercicios/02.Zona-staging/README.md)
 - [03. Trabajar con ramas](./ejercicios/03.Trabajo-con-ramas/README.md)
-- [04. Mergear ramas tipo Fast-Forward](./ejercicios/04.Mergear-ramas/README.MD)
-- [05. Mergear ramas tipo 3-way](./ejercicios/05.Anexar-ramas-otras-formas/README.md)
+- [04. Fusionar ramas (Fast-Forward)](./ejercicios/04.Mergear-ramas/README.MD)
+- [05. Fusionar ramas (3-way merge)](./ejercicios/05.Anexar-ramas-otras-formas/README.md)
 - [06. Resolver conflictos](./ejercicios/06.Anexar-conflictos/README.md)
-- [07. Rebase rama](./ejercicios/07.Rebase-rama/README.md)
+- [07. Rebase de ramas](./ejercicios/07.Rebase-rama/README.md)
 - [08. Revertir cambios](./ejercicios/08.Revertir-cambios/README.md)
-- [09. Resetear cambios](./ejercicios/09.Reset/README.md)
+- [09. Deshacer cambios con reset](./ejercicios/09.Reset/README.md)
 - [10. Pull Request](./ejercicios/10.Pull-Request/README.md)
 
 
@@ -29,16 +34,16 @@ Esta es una lista del orden recomendado para realizar los ejercicios.
 Una colección de comandos útiles para usar en todos los ejercicios y en el día a día:
 
 ```shell
-# Inicializar un vacio repositorio.
-git init            # Inicializa una vacio repositorio en el actual directorio.
+# Inicializar un repositorio vacío
+git init            # Inicializa un repositorio vacío en el directorio actual.
 
 # Clonar repositorio
-git clone https://github.com/ivangm-arch/repo-clase1-git.git     # Clone el repositorio url y crea un directorio con el repo del repositorio
+git clone https://github.com/ivangm-arch/repo-clase1-git.git     # Clona el repositorio remoto y crea un directorio local con su contenido
 
-# Git (usuario and repositorio nivel) configuraciones
-git config --local user.name "Repo-level Username"            # Establece el nombre de usuario por defecto a nivel repo git.
-git config --local user.email "Repo-level.Email@Example.com"  # Establece el email de usuario por defecto a nivel repo git.
-                                                              # --global -> Establece el parametro a nivel usuario <user-home>/.gitconfig for ej. ~/.gitconfig
+# Configuración de Git a nivel usuario y repositorio
+git config --local user.name "Tu Nombre"                      # Establece el nombre de usuario por defecto a nivel repo git.
+git config --local user.email "tu@email.com"                  # Establece el email de usuario por defecto a nivel repo git.
+                                                              #--global -> Establece el parámetro a nivel usuario en ~/.gitconfig
                                                               # --local -> Establece el parametro a nivel repositorio .git/config
 
 
@@ -92,7 +97,7 @@ git branch my-branch       # Crea una nueva rama my-branch
 git switch my-branch       # Cambia a otra rama para trabajar en ella
 git switch -c my-branch    # Crea una nueva rama llamada my-branch y cambia a esa rama nueva
 git branch -d my-branch    # Elimina la rama my-branch solo si se ha mergeado con otra rama
-git branch -D my-branch    # Fuarza la eliminación de la rama, aunque no se haya mergeado con otra rama
+git branch -D my-branch    # Fuerza la eliminación de la rama, aunque no se haya fusionado con otra rama
 
 # Merging
 git merge master         # Hace un merge de la rama master sobre la rama en la que estes trabajando
@@ -102,16 +107,16 @@ git rebase master        # Mueve los commits de tu rama actual para reaplicarlos
 git remote                   # Muestra tus remote actuales
 git remote -v                # Muestra tus remotes actuales y sus URLs
 git push                     # Envía tus commits locales de la rama actual al repositorio remoto
-git push -u origin my-branch # Envía la rama local my-branch al repositorio remoto llamado origin y establece esa rama remota como la rama por defecto, para que en futuros pushs o pulls puedas usar solo git push o git pull sin especificar la rama from origin.
-git pull                     # Descarga los cambios de la rama remota aplicandolos sobre tu rama local
+git push -u origin my-branch # Envía la rama local my-branch al repositorio remoto origin y la configura como rama de seguimiento por defecto.
+git pull                     # Descarga los cambios de la rama remota y los aplica sobre tu rama local
 
 # Mover ficheros bajo version control
-git rm <path/to/the/file>                 # Elimina un fichero o directorio y tambien de la zona stage 
-git mv <source/file> <destination/file>   # Mueve/renombre un fichero o directorio y lo actualiza de la zona stage
+git rm <path/to/the/file>                 # Elimina un fichero o directorio y lo quita también del área de staging 
+git mv <source/file> <destination/file>   # Mueve o renombra un fichero o directorio y actualiza el área de staging
 
 # Aliases - Existe la posibilidad de crear Alias de comandos utilizados con frecuencia
 
-# Añadir un alias "sw" for "switch"
+# Añadir un alias "sw" para "switch"
 git config --global alias.sw "switch"
 # Uso:
 git sw master     # Realmente has hecho "git switch master"
