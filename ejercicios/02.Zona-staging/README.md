@@ -1,192 +1,124 @@
-# 02. Área de staging
 
-## Objetivo
+# 02. Trabajo con el área de staging
 
-Comprender cómo Git separa los cambios en tres zonas:
+Este ejercicio examinará el área de preparación de git.
 
-```text
-Directorio de trabajo -> Área de staging -> Historial de commits
-```
+En git estamos trabajando con tres áreas diferentes:
 
-Este ejercicio es importante porque permite ver que un mismo archivo puede tener:
+1. El directorio de trabajo donde está realizando sus cambios.
+2. El área de preparación donde permanecerán todos los cambios que haya agregado a través de `git add`
+3. El repositorio donde termina cada confirmación, haciendo tu historial. Para poner sus cambios preparados aquí, emita el comando `git commit`.
 
-- cambios preparados para commit,
-- cambios todavía sin preparar,
-- y una versión anterior guardada en el último commit.
+Un archivo puede tener cambios tanto en el directorio de trabajo como en el área de preparación al mismo tiempo.
+Estos cambios no tienen por qué ser los mismos.
+
+También trabajaremos con `git restore` para restaurar los cambios preparados de un archivo y `git checkout` para devolver un archivo a un estado anterior.
+
+## La tarea
+
+Vives en tu propio repositorio. Hay un archivo llamado `file.txt`.
+
+1. ¿Cuál es el contenido de `file.txt`?
+2. Sobrescriba el contenido en `file.txt`: `echo 2 > file.txt` para cambiar el estado de su archivo en el directorio de trabajo
+3. ¿Qué te dice "git diff"?
+4. ¿Qué te dice `git diff --staged`? ¿Por qué está esto en blanco?
+5. Ejecute `git add file.txt` para preparar sus cambios desde el directorio de trabajo.
+6. ¿Qué te dice `git diff`?
+7. ¿Qué te dice `git diff --staged`?
+8. Sobrescriba el contenido en `file.txt`: `echo 3 > file.txt` para cambiar el estado de su archivo en el directorio de trabajo.
+9. ¿Qué te dice `git diff`?
+10. ¿Qué te dice `git diff --staged`?
+11. Explica lo que está pasando
+12. Ejecute `git status` y observe que `file.txt` está presente dos veces en la salida.
+13. Ejecute `git restore --staged file.txt` para cancelar el cambio
+14. ¿Qué te dice ahora "git status"?
+15. Materializa el cambio haciendo un commit.
+16. ¿Cómo se ve el registro?
+17. Sobrescriba el contenido en `file.txt`: `echo 4 > file.txt` 
+18. ¿Cuál es el contenido de `file.txt`?
+19. ¿Qué nos dice "git status"?
+20. Ejecute `git restore file.txt`
+21. ¿Cuál es el contenido de `file.txt`?
+22. ¿Qué nos dice "git status"?
+
+## Comandos útiles
+
+- `git add`
+- `git commit`
+- `git commit -m "Mi mensaje de confirmación breve y perezoso"`
+- `git log`
+- `git log -n 5`
+- `git log --oneline`
+- `git log --oneline --graph`
+- `git restore --staged`
+
+## Alias
+
+Puede configurar alias, que pueden ser útiles para ahorrar tiempo al escribir comandos largos.
+`git config --global alias.lol 'log --oneline --graph --all'`
+
 
 ---
 
-## Conceptos clave
 
-- `git diff` muestra cambios en el directorio de trabajo que todavía no están en staging.
-- `git diff --staged` muestra cambios que ya están preparados para el próximo commit.
-- `git restore <archivo>` descarta cambios no preparados.
-- `git restore --staged <archivo>` saca cambios del staging sin borrar el contenido del archivo.
+## Diferencia entre `git add .` y `git add *`
 
----
+Aunque parecen similares, no hacen exactamente lo mismo.
 
-## Tarea guiada
+### `git add .`
 
-### 1. Prepara un archivo de trabajo
+Añade:
 
-Este ejercicio necesita un archivo ya versionado por Git. Créalo con un primer commit:
+- archivos nuevos,
+- modificados,
+- eliminados,
+
+desde el directorio actual hacia abajo.
+
+Respeta correctamente:
+- archivos ocultos,
+- nombres con espacios,
+- estructura real del repositorio.
+
+Es la opción recomendada en la mayoría de casos.
+
+Ejemplo:
 
 ```bash
-echo "Línea 1" > staging-demo.txt
-git add staging-demo.txt
-git commit -m "Prepara archivo para practicar staging"
-```
-
----
-
-### 2. Revisa el archivo inicial
-
-```bash
-cat staging-demo.txt
-```
-
-Si estás en Windows PowerShell:
-
-```powershell
-Get-Content staging-demo.txt
-```
-
----
-
-### 3. Sobrescribe el archivo
-
-```bash
-echo "Línea 2" > staging-demo.txt
-```
-
----
-
-### 4. Comprueba diferencias sin preparar
-
-```bash
-git diff
-```
-
-Responde:
-
-- ¿Qué cambio detecta Git?
-
----
-
-### 5. Comprueba diferencias preparadas
-
-```bash
-git diff --staged
-```
-
-Responde:
-
-- ¿Por qué no aparece nada?
-
----
-
-### 6. Añade el archivo al staging
-
-```bash
-git add staging-demo.txt
+git add .
 ```
 
 ---
 
-### 7. Compara de nuevo
+### `git add *`
+
+El `*` es expandido por la shell antes de que Git reciba el comando.
+
+Esto puede provocar diferencias:
+
+- no incluye archivos ocultos,
+- puede comportarse distinto según el sistema,
+- puede fallar con espacios en nombres,
+- depende del shell utilizado.
+
+Ejemplo:
 
 ```bash
-git diff
-git diff --staged
-```
-
-Responde:
-
-- ¿Dónde aparece ahora el cambio?
-
----
-
-### 8. Modifica otra vez el mismo archivo
-
-```bash
-echo "Línea 3" >> staging-demo.txt
-```
-
----
-
-### 9. Comprueba los dos tipos de diferencias
-
-```bash
-git diff
-git diff --staged
-```
-
-Responde:
-
-- ¿Por qué hay cambios en ambos comandos?
-- ¿Qué parte está preparada para commit?
-- ¿Qué parte sigue solo en el directorio de trabajo?
-
----
-
-### 10. Saca el archivo del staging
-
-```bash
-git restore --staged staging-demo.txt
-```
-
-Comprueba:
-
-```bash
-git status
-git diff
-git diff --staged
+git add *
 ```
 
 ---
 
-### 11. Descarta los cambios no confirmados
+## Recomendación
+
+Para trabajar con Git normalmente se recomienda usar:
 
 ```bash
-git restore staging-demo.txt
+git add .
 ```
 
-Comprueba:
+o añadir archivos específicos:
 
 ```bash
-git status
-cat staging-demo.txt
-```
-
----
-
-## Reto adicional
-
-Haz un cambio en `staging-demo.txt`, añádelo al staging, modifica otra vez el mismo archivo y crea un commit solo con la primera modificación.
-
-Pista:
-
-```bash
-git add staging-demo.txt
-git commit -m "Guarda primera modificación"
-```
-
-Después comprueba si queda algún cambio pendiente:
-
-```bash
-git status
-```
-
----
-
-## Comandos usados
-
-```bash
-git status
-git diff
-git diff --staged
-git add <archivo>
-git restore <archivo>
-git restore --staged <archivo>
-git commit -m "Mensaje"
+git add file.txt
 ```
