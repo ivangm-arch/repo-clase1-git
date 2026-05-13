@@ -1,269 +1,314 @@
 # 07. Rebase de ramas
 
-## Objetivo
+## Objetivos
 
-Aprender a:
+En este ejercicio aprenderás a:
 
-- Reaplicar commits sobre otra rama usando `git rebase`
-- Entender la diferencia entre `merge` y `rebase`
-- Resolver conflictos durante un rebase
-- Mantener un historial lineal y limpio
+- Crear ramas.
+- Realizar commits en diferentes ramas.
+- Utilizar `git rebase`.
+- Resolver conflictos durante un rebase.
+- Usar `rebase interactivo`.
+- Mantener un historial limpio.
 
 ---
 
-# ¿Qué hace `git rebase`?
+# Ejercicio 1 — Rebase básico
 
-`git rebase` toma los commits de una rama y los vuelve a aplicar sobre otra base.
-
-Ejemplo:
-
-```text
-Antes:
-
-A---B develop
-     \
-      C---D feature/rebase-demo
-```
-
-Después de:
+## 1. Crear repositorio
 
 ```bash
-git rebase develop
+mkdir ejercicio-rebase
+cd ejercicio-rebase
+
+git init
 ```
 
-queda:
-
-```text
-A---B---C'---D' feature/rebase-demo
-```
-
-Git crea commits nuevos (`C'` y `D'`) con hashes distintos.
-
 ---
 
-# Diferencia entre merge y rebase
-
-| Merge | Rebase |
-|---|---|
-| Une historias creando un merge commit | Reescribe commits sobre otra base |
-| Mantiene la historia original | Crea commits nuevos |
-| Historial más ramificado | Historial lineal |
-| Más seguro para ramas compartidas | Más limpio para ramas locales |
-
----
-
-# Escenario del ejercicio
-
-Vamos a:
-
-1. Crear una rama feature
-2. Hacer cambios
-3. Avanzar `develop`
-4. Provocar un conflicto
-5. Resolverlo con `rebase`
-
----
-
-# 1. Crear la rama de trabajo
+## 2. Crear rama principal
 
 ```bash
-git switch develop
-git switch -c feature/rebase-demo
+git checkout -b main
 ```
 
 ---
 
-# 2. Crear archivo y primer commit
+## 3. Crear commit inicial
 
 ```bash
-echo "Linea inicial" > rebase-demo.txt
-git add rebase-demo.txt
-git commit -m "feat: crear archivo rebase-demo"
+echo "Proyecto Git" > README.md
+
+git add .
+git commit -m "Commit inicial"
 ```
 
 ---
 
-# 3. Segundo commit en la feature
+## 4. Crear rama feature
 
 ```bash
-echo "Cambio desde feature" >> rebase-demo.txt
-git add rebase-demo.txt
-git commit -m "feat: cambios desde feature"
+git checkout -b feature/login
 ```
 
 ---
 
-# 4. Volver a develop y generar conflicto
+## 5. Crear cambios en la rama feature
 
 ```bash
-git switch develop
-```
+echo "Formulario login" > login.txt
 
-Modificar el MISMO archivo para provocar conflicto:
+git add .
+git commit -m "Añadir formulario login"
+```
 
 ```bash
-echo "Cambio desde develop" > rebase-demo.txt
-git add rebase-demo.txt
-git commit -m "feat: cambios desde develop"
+echo "Validación usuario" >> login.txt
+
+git add .
+git commit -m "Añadir validación login"
 ```
 
 ---
 
-# Estado del historial
-
-```text
-A---B develop
-     \
-      C---D feature/rebase-demo
-```
-
----
-
-# 5. Volver a la feature y ejecutar rebase
+## 6. Volver a `main` y añadir cambios
 
 ```bash
-git switch feature/rebase-demo
-git rebase develop
+git checkout main
 ```
-
-Git detectará un conflicto.
-
----
-
-# 6. Ver conflicto
 
 ```bash
-git status
-```
+echo "Configuración global" > config.txt
 
-Verás algo parecido a:
-
-```text
-CONFLICT (content): Merge conflict in rebase-demo.txt
+git add .
+git commit -m "Añadir configuración global"
 ```
 
 ---
 
-# 7. Resolver conflicto manualmente
+## 7. Hacer rebase de la rama feature sobre `main`
 
-Abrir `rebase-demo.txt`.
-
-Verás algo parecido a:
-
-```text
-<<<<<<< HEAD
-Cambio desde develop
-=======
-Linea inicial
-Cambio desde feature
->>>>>>> feat: cambios desde feature
-```
-
-Resolver el conflicto dejando el contenido final así:
-
-```text
-Cambio desde develop
-Cambio desde feature
-```
-
----
-
-# 8. Marcar conflicto resuelto
+Cambiar a la rama feature:
 
 ```bash
-git add rebase-demo.txt
-git rebase --continue
+git checkout feature/login
 ```
 
-Si aparecen más conflictos, repetir el proceso.
+Ejecutar el rebase:
+
+```bash
+git rebase main
+```
 
 ---
 
-# 9. Verificar historial
+## 8. Ver el historial
 
 ```bash
 git log --oneline --graph --all
 ```
 
-Deberías ver una historia lineal:
-
-```text
-A---B---C'---D'
-```
-
-Sin merge commits.
-
 ---
 
-# 10. Integrar la rama en develop
+# Ejercicio 2 — Rebase con conflictos
+
+## 1. Crear nueva rama
 
 ```bash
-git switch develop
-git merge --ff-only feature/rebase-demo
-```
-
-Como la historia quedó lineal, Git hará un fast-forward merge.
-
----
-
-# Resultado final
-
-```text
-A---B---C'---D' develop
+git checkout main
+git checkout -b feature/conflicto
 ```
 
 ---
 
-# Comandos útiles durante un rebase
-
-## Continuar después de resolver conflictos
+## 2. Modificar fichero
 
 ```bash
+echo "Color azul" > estilos.txt
+
+git add .
+git commit -m "Color azul"
+```
+
+---
+
+## 3. Volver a `main` y modificar la misma línea
+
+```bash
+git checkout main
+```
+
+```bash
+echo "Color rojo" > estilos.txt
+
+git add .
+git commit -m "Color rojo"
+```
+
+---
+
+## 4. Volver a la rama feature y lanzar rebase
+
+```bash
+git checkout feature/conflicto
+```
+
+```bash
+git rebase main
+```
+
+---
+
+## 5. Resolver conflicto
+
+Git mostrará algo parecido a esto:
+
+```text
+<<<<<<< HEAD
+Color rojo
+=======
+Color azul
+>>>>>>> commit
+```
+
+Editar el fichero dejando el contenido correcto:
+
+```text
+Color azul y rojo
+```
+
+---
+
+## 6. Continuar el rebase
+
+```bash
+git add estilos.txt
 git rebase --continue
 ```
 
-## Cancelar el rebase
+---
+
+## 7. Cancelar un rebase (opcional)
 
 ```bash
 git rebase --abort
 ```
 
-## Saltar un commit conflictivo
+---
+
+# Ejercicio 3 — Rebase interactivo
+
+## 1. Crear rama
 
 ```bash
-git rebase --skip
+git checkout main
+git checkout -b feature/interactivo
 ```
 
 ---
 
-# Importante
-
-Después de un rebase:
-
-- los commits tienen hashes nuevos
-- la historia fue reescrita
-
-Si la rama ya existía en remoto, normalmente necesitarás:
+## 2. Crear varios commits
 
 ```bash
-git push --force-with-lease
+echo "Linea 1" > fichero.txt
+
+git add .
+git commit -m "Commit 1"
+```
+
+```bash
+echo "Linea 2" >> fichero.txt
+
+git add .
+git commit -m "Commit 2"
+```
+
+```bash
+echo "Linea 3" >> fichero.txt
+
+git add .
+git commit -m "Commit 3"
 ```
 
 ---
 
-# Ejercicio final
-
-1. Crear una nueva rama `feature/rebase-extra`
-2. Hacer 3 commits
-3. Modificar el mismo archivo desde `develop`
-4. Ejecutar:
+## 3. Lanzar rebase interactivo
 
 ```bash
-git rebase develop
+git rebase -i HEAD~3
 ```
 
-5. Resolver conflictos
-6. Verificar el historial final con:
+---
+
+## 4. Editor interactivo
+
+Git abrirá algo parecido a:
+
+```text
+pick abc123 Commit 1
+pick def456 Commit 2
+pick ghi789 Commit 3
+```
+
+---
+
+# Opciones del rebase interactivo
+
+## Combinar commits (`squash`)
+
+```text
+pick abc123 Commit 1
+squash def456 Commit 2
+squash ghi789 Commit 3
+```
+
+Resultado:
+
+- Los commits se combinarán en uno solo.
+
+---
+
+## Cambiar mensaje (`reword`)
+
+```text
+reword abc123 Commit 1
+pick def456 Commit 2
+pick ghi789 Commit 3
+```
+
+Resultado:
+
+- Git permitirá modificar el mensaje del commit.
+
+---
+
+## Eliminar commit (`drop`)
+
+```text
+pick abc123 Commit 1
+drop def456 Commit 2
+pick ghi789 Commit 3
+```
+
+Resultado:
+
+- El commit eliminado desaparecerá del historial.
+
+---
+
+## Reordenar commits
+
+Simplemente cambiar el orden:
+
+```text
+pick ghi789 Commit 3
+pick abc123 Commit 1
+pick def456 Commit 2
+```
+
+---
+
+# Ver historial final
 
 ```bash
 git log --oneline --graph --all
@@ -271,10 +316,67 @@ git log --oneline --graph --all
 
 ---
 
-# Preguntas de reflexión
+# Buenas prácticas
 
-1. ¿Qué diferencia visual hay entre `merge` y `rebase` en el historial?
-2. ¿Por qué los commits cambian de hash después del rebase?
-3. ¿Qué ventaja tiene una historia lineal?
-4. ¿Cuándo NO deberías hacer rebase sobre ramas compartidas?
-5. ¿Qué hace `git push --force-with-lease`?
+## Actualizar cambios remotos antes de rebase
+
+```bash
+git fetch
+```
+
+---
+
+## Rebase correcto sobre la rama principal
+
+```bash
+git checkout feature/login
+git rebase main
+```
+
+---
+
+## Evitar merges innecesarios
+
+Usar:
+
+```bash
+git pull --rebase
+```
+
+En lugar de:
+
+```bash
+git pull
+```
+
+---
+
+# Conceptos importantes
+
+## `merge`
+
+- Mantiene el historial original.
+- Genera commits de merge.
+
+---
+
+## `rebase`
+
+- Reescribe el historial.
+- Mantiene una línea temporal más limpia.
+- Reaplica commits encima de otra rama.
+
+---
+
+# Cuándo usar rebase
+
+- Mantener historial limpio.
+- Preparar Pull Requests.
+- Combinar commits pequeños.
+- Actualizar ramas feature con cambios de `main`.
+
+---
+
+# Cuándo NO usar rebase
+
+No hacer rebase sobre ramas públicas compartidas por otros desarrolladores, ya que reescribe el historial.
