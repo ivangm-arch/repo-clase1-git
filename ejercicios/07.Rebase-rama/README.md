@@ -15,18 +15,7 @@ En este ejercicio aprenderás a:
 
 # Ejercicio 1 — Rebase básico
 
-## 1. Crear repositorio
-
-```bash
-mkdir ejercicio-rebase
-cd ejercicio-rebase
-
-git init
-```
-
----
-
-## 2. Crear rama principal
+## 1. Crear rama principal
 
 ```bash
 git checkout -b main
@@ -34,7 +23,7 @@ git checkout -b main
 
 ---
 
-## 3. Crear commit inicial
+## 2. Crear commit inicial
 
 ```bash
 echo "Proyecto Git" > README.md
@@ -45,7 +34,7 @@ git commit -m "Commit inicial"
 
 ---
 
-## 4. Crear rama feature
+## 3. Crear rama feature
 
 ```bash
 git checkout -b feature/login
@@ -53,7 +42,7 @@ git checkout -b feature/login
 
 ---
 
-## 5. Crear cambios en la rama feature
+## 4. Crear cambios en la rama feature
 
 ```bash
 echo "Formulario login" > login.txt
@@ -71,7 +60,7 @@ git commit -m "Añadir validación login"
 
 ---
 
-## 6. Volver a `main` y añadir cambios
+## 5. Volver a `main` y añadir cambios
 
 ```bash
 git checkout main
@@ -86,7 +75,7 @@ git commit -m "Añadir configuración global"
 
 ---
 
-## 7. Hacer rebase de la rama feature sobre `main`
+## 6. Hacer rebase de la rama feature sobre `main`
 
 Cambiar a la rama feature:
 
@@ -102,7 +91,7 @@ git rebase main
 
 ---
 
-## 8. Ver el historial
+## 7. Ver el historial
 
 ```bash
 git log --oneline --graph --all
