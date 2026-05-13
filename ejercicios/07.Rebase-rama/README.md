@@ -15,21 +15,21 @@ En este ejercicio aprenderás a:
 
 # Ejercicio 1 — Rebase básico
 
-## 1. Crear rama principal
+## 1. Cambiar a la rama principal
 
 ```bash
-git checkout -b main
+git checkout main
 ```
 
 ---
 
-## 2. Crear commit inicial
+## 2. Crear fichero inicial para el ejercicio
 
 ```bash
-echo "Proyecto Git" > README.md
+echo "Proyecto Git" > ejercicio-rebase.txt
 
 git add .
-git commit -m "Commit inicial"
+git commit -m "Commit inicial ejercicio rebase"
 ```
 
 ---
@@ -199,21 +199,21 @@ git checkout -b feature/interactivo
 ## 2. Crear varios commits
 
 ```bash
-echo "Linea 1" > fichero.txt
+echo "Linea 1" > fichero-interactivo.txt
 
 git add .
 git commit -m "Commit 1"
 ```
 
 ```bash
-echo "Linea 2" >> fichero.txt
+echo "Linea 2" >> fichero-interactivo.txt
 
 git add .
 git commit -m "Commit 2"
 ```
 
 ```bash
-echo "Linea 3" >> fichero.txt
+echo "Linea 3" >> fichero-interactivo.txt
 
 git add .
 git commit -m "Commit 3"
