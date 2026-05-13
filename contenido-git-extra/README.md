@@ -115,6 +115,7 @@ Pregunta:
 ### 4. Guarda temporalmente los cambios
 
 ```bash
+git add .
 git stash push -m "Trabajo temporal de la feature stash"
 ```
 
