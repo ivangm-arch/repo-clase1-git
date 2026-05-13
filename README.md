@@ -54,7 +54,7 @@ Directorio de trabajo -> Área de staging -> Historial de commits
 - [01. Commits](./ejercicios/01.Commit/README.md)
 - [02. Área de staging](./ejercicios/02.Zona-staging/README.md)
 - [03. Trabajo con ramas](./ejercicios/03.Trabajo-con-ramas/README.md)
-- [04. Merge Fast-Forward](./ejercicios/04.Mergear-ramas/README.md)
+- [04. Merge Fast-Forward](ejercicios/04.Mergear-ramas/README.MD)
 - [05. Merge con commit de fusión](./ejercicios/05.Anexar-ramas-otras-formas/README.md)
 - [06. Resolver conflictos](./ejercicios/06.Anexar-conflictos/README.md)
 - [07. Rebase de ramas](./ejercicios/07.Rebase-rama/README.md)
