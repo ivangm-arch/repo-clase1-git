@@ -7,17 +7,7 @@ No es imprescindible para una primera toma de contacto, pero sí es muy recomend
 - guardar trabajo temporalmente sin hacer commit,
 - recuperar commits aparentemente perdidos,
 - aplicar un commit concreto de una rama a otra.
-
----
-
-## Cuándo hacer esta sección
-
-Orden recomendado:
-
-1. Después de haber practicado commits, staging y ramas.
-2. Después de haber visto merge y conflictos.
-3. Antes o después del ejercicio de Pull Request, según el ritmo de la clase.
-
+  
 ---
 
 # 01. Git stash
