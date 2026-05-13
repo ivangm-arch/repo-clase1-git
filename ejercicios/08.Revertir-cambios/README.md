@@ -1,110 +1,168 @@
+# 08. Revertir cambios con git revert
 
-# 🧪 Ejercicio 08: Revertir cambios con `git revert`
+## Objetivo
 
-Este ejercicio te guía paso a paso para aprender a usar el comando `git revert`, el cual permite **deshacer un commit** creando uno nuevo que revierte los cambios, **sin modificar el historial existente**.
+Aprender a deshacer cambios con `git revert`.
 
----
+`git revert` no borra historial. Crea un commit nuevo que deshace los cambios introducidos por otro commit.
 
-## 🎯 Objetivo
-
-- Practicar cómo revertir uno o varios commits.
-- Ver el efecto de `git revert` en el historial.
-- Comparar con `git reset` (pero sin alterar historial).
+Esto lo hace más seguro que `git reset` para commits que ya han sido compartidos con otras personas.
 
 ---
 
-## 🔟 Pasos
+## Conceptos clave
 
-### 1.  Crear primer commit
-```bash copy
-echo "Línea 1" > archivo.txt
-git add archivo.txt
-git commit -m "Commit 1: Añadir línea 1"
+- `git revert HEAD` revierte el último commit.
+- `git revert <hash>` revierte un commit concreto.
+- `git revert --no-edit <hash>` crea el commit de reversión sin abrir el editor.
+- `git revert` es seguro para ramas compartidas porque no reescribe historial.
+
+---
+
+## Tarea guiada
+
+### 1. Crea un primer commit
+
+```bash
+echo "Línea 1" > archivo-revert.txt
+git add archivo-revert.txt
+git commit -m "Commit 1: añade línea 1"
 ```
 
-### 2.  Añadir segundo commit
-```bash copy
-echo "Línea 2" >> archivo.txt
-git commit -am "Commit 2: Añadir línea 2"
+---
+
+### 2. Añade un segundo commit
+
+```bash
+echo "Línea 2" >> archivo-revert.txt
+git add archivo-revert.txt
+git commit -m "Commit 2: añade línea 2"
 ```
-### 3.  Añadir tercer commit
-```bash copy
-echo "Línea 3" >> archivo.txt
-git commit -am "Commit 3: Añadir línea 3"
+
+---
+
+### 3. Añade un tercer commit
+
+```bash
+echo "Línea 3" >> archivo-revert.txt
+git add archivo-revert.txt
+git commit -m "Commit 3: añade línea 3"
 ```
-### 4. Ver historial de commits
-```bash copy
+
+---
+
+### 4. Revisa el historial
+
+```bash
 git log --oneline
 ```
-Deberías ver algo así
+
+Deberías ver algo parecido a:
+
+```text
+abc1234 Commit 3: añade línea 3
+def5678 Commit 2: añade línea 2
+ghi9012 Commit 1: añade línea 1
 ```
-c3 Commit 3: Añadir línea 3
-c2 Commit 2: Añadir línea 2
-c1 Commit 1: Añadir línea 1
+
+---
+
+### 5. Revisa el contenido actual
+
+```bash
+cat archivo-revert.txt
 ```
-### 5.  Ver contenido actual del archivo
-```bash copy
-cat archivo.txt
-```
-Resultado esperado
-```
+
+Resultado esperado:
+
+```text
 Línea 1
 Línea 2
 Línea 3
 ```
-### 6.  Revertir el último commit (`HEAD`)
-```bash copy
-git revert HEAD
+
+---
+
+### 6. Revierte el último commit
+
+```bash
+git revert --no-edit HEAD
 ```
-### 7.  Ver historial después del revert
-```bash copy
+
+---
+
+### 7. Revisa el historial después del revert
+
+```bash
 git log --oneline
 ```
-Deberías ver algo así
-``` 
-c4 Revert "Commit 3: Añadir línea 3"
-c3 Commit 3: Añadir línea 3
-c2 Commit 2: Añadir línea 2
-c1 Commit 1: Añadir línea 1
+
+Ahora deberías ver un commit nuevo de tipo `Revert`.
+
+---
+
+### 8. Revisa el contenido del archivo
+
+```bash
+cat archivo-revert.txt
 ```
-### 8.  Ver contenido del archivo después del revert
-```bash copy
-cat archivo.txt
-```
-Resultado esperado
-```
+
+Resultado esperado:
+
+```text
 Línea 1
 Línea 2
 ```
-### 9.  Revertir múltiples commits
-```bash copy
-echo "Línea 4" >> archivo.txt
-git commit -am "Commit 4: Añadir línea 4"
 
-echo "Línea 5" >> archivo.txt
-git commit -am "Commit 5: Añadir línea 5"
-```
-Revertir los 2 últimos commits
-```bash copy
-git revert HEAD~2..HEAD
-```
+---
 
-### 10.  Ver contenido del archivo después del revert múltiple
-```bash copy
-cat archivo.txt
+### 9. Crea dos commits más
+
+```bash
+echo "Línea 4" >> archivo-revert.txt
+git add archivo-revert.txt
+git commit -m "Commit 4: añade línea 4"
+
+echo "Línea 5" >> archivo-revert.txt
+git add archivo-revert.txt
+git commit -m "Commit 5: añade línea 5"
 ```
 
-# 📌 Resumen de comandos
+---
 
-| Acción                        | Comando                           | Descripción                                                                 |
-|------------------------------|------------------------------------|------------------------------------------------------------------------------|
-| Revertir el último commit    | `git revert HEAD`                 | Crea un nuevo commit que revierte los cambios del último commit             |
-| Revertir un commit por hash  | `git revert <hash>`               | Reviertes un commit específico (puedes obtener el hash con `git log`)       |
-| Revertir varios commits      | `git revert A..B`                 | Reviertes varios commits en orden inverso (de B hacia A, sin incluir A)     |
-| Ver historial simple         | `git log --oneline`               | Muestra los commits de forma resumida en una línea                          |
-| Ver historial con gráfico    | `git log --graph --oneline --all` | Muestra el historial visualmente, útil para ver ramas y merges              |
-| Ver contenido de un archivo  | `cat archivo.txt`                 | Muestra el contenido actual del archivo desde la línea de comandos          |
+### 10. Revierte los dos últimos commits
 
+```bash
+git revert --no-edit HEAD~2..HEAD
+```
 
+---
 
+### 11. Comprueba el resultado
 
+```bash
+git log --oneline
+cat archivo-revert.txt
+```
+
+---
+
+## Reto adicional
+
+Usa `git log --oneline` para copiar el hash de un commit concreto y reviértelo con:
+
+```bash
+git revert --no-edit <hash>
+```
+
+---
+
+## Resumen
+
+| Acción | Comando |
+|---|---|
+| Revertir último commit | `git revert HEAD` |
+| Revertir sin abrir editor | `git revert --no-edit HEAD` |
+| Revertir commit concreto | `git revert <hash>` |
+| Revertir rango de commits | `git revert A..B` |
+| Ver historial | `git log --oneline` |

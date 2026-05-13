@@ -1,35 +1,143 @@
 # 03. Trabajo con ramas
 
-## La tarea
+## Objetivo
 
-Esta vez vamos a trabajar con las ramas, haremos un poco de malabares y vereis lo utiles que pueden llegar a ser
-Pista: git switch te hará cambiar de una rama a otra.
+Aprender a crear ramas, cambiar entre ellas y observar cómo evoluciona el historial.
 
-1. Utilice `git branch`para ver las ramas actuales.
-2. En qué rama estás?
-3. Usa `git branch ivan` para crear una rama de nombre _ivan_
-4. Usa `git branch` de nuevo para ver la nueva rama creada.
-5. Usa `git switch ivan` para ir a tu nueva rama.
-6. Cómo `git status` cambia la salida cuando cambias entre la rama maestra y la nueva que has creado?
-7. ¿Cómo cambia el espacio de trabajo cuando cambias entre las dos ramas?
-8. Asegúrese de estar en la rama `ivan` antes de continuar.
-9. Crear un fichero de nombre `file1.txt`.
-10. `Add` el fichero y crea el `commit` con este cambio.
-11. Usa `git log --oneline --graph` para ver la rama apuntando al nuevo commit..
-12. Vuelve de nuevo a la rama principal llamada _main_.
-13. Usa `git log --oneline --graph` y revisa como el commit que has hecho sobre `ivan` no está en la rama `main`.
-14. Haz un nuevo fichero de nombre `file2.txt` y haz un nuevo commit con este fichero.
-15. Usa `git log --oneline --graph --all` para ver la rama apuntando al nuevo commit y que las 2 ramas ahora tiene diferentes commits.
-16. Vuelve de nuevo a la rama  _ivan_.
-17. ¿Qué pasó con su directorio de trabajo? ¿Puedes ver tu `file2.txt`?
-18. Usa `git diff ivan main` para ver las diferencias entre ambas ramas.
-19. Asegurate de hacer commit de los cambios en la rama _main_ y en la rama _ivan_.
+Una rama en Git no es una copia completa del proyecto. Es un puntero a un commit.
 
+---
 
-## Comandos útiles
+## Conceptos clave
 
-- `git switch`
-- `git switch -c`
-- `git log --oneline --graph`
-- `git branch`
-- `git diff`
+- `main` suele ser la rama principal.
+- Una rama permite trabajar de forma aislada.
+- `HEAD` indica dónde estás trabajando ahora.
+- `git switch` permite cambiar de rama.
+- `git switch -c` crea una rama y cambia a ella.
+
+---
+
+## Tarea guiada
+
+### 1. Consulta las ramas actuales
+
+```bash
+git branch
+```
+
+Responde:
+
+- ¿Qué rama aparece marcada con `*`?
+
+---
+
+### 2. Crea una rama nueva
+
+```bash
+git switch -c feature/saludo
+```
+
+---
+
+### 3. Crea un archivo en la nueva rama
+
+```bash
+echo "Trabajo en la rama feature/saludo" > saludo-rama.txt
+```
+
+---
+
+### 4. Crea un commit en la rama
+
+```bash
+git add saludo-rama.txt
+git commit -m "Añade saludo en rama feature"
+```
+
+---
+
+### 5. Visualiza el historial
+
+```bash
+git log --oneline --graph --all
+```
+
+Responde:
+
+- ¿Dónde está la rama `feature/saludo`?
+
+---
+
+### 6. Vuelve a la rama principal
+
+```bash
+git switch main
+```
+
+Si tu rama principal se llama `master`, usa:
+
+```bash
+git switch master
+```
+
+---
+
+### 7. Comprueba los archivos
+
+```bash
+ls
+```
+
+Responde:
+
+- ¿Ves `saludo-rama.txt`?
+- ¿Por qué?
+
+---
+
+### 8. Crea un commit diferente en main
+
+```bash
+echo "Cambio realizado en main" > cambio-main.txt
+git add cambio-main.txt
+git commit -m "Añade cambio en main"
+```
+
+---
+
+### 9. Visualiza la divergencia
+
+```bash
+git log --oneline --graph --all
+```
+
+Responde:
+
+- ¿Las ramas tienen el mismo último commit?
+- ¿Qué significa que el historial se bifurque?
+
+---
+
+## Reto adicional
+
+Crea otra rama llamada `feature/notas`, añade un archivo `notas-rama.txt`, crea un commit y vuelve a `main`.
+
+Comprueba el resultado con:
+
+```bash
+git log --oneline --graph --all
+```
+
+---
+
+## Comandos usados
+
+```bash
+git branch
+git switch <rama>
+git switch -c <rama>
+git log --oneline --graph --all
+git add <archivo>
+git commit -m "Mensaje"
+```
