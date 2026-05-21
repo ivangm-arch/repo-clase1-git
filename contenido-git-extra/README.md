@@ -631,16 +631,3 @@ git cherry-pick --abort
 | `git stash` | Guardar cambios temporales sin commit |
 | `git reflog` | Recuperar movimientos recientes de `HEAD` |
 | `git cherry-pick` | Aplicar un commit concreto en otra rama |
-
----
-
-## Recomendación docente
-
-Después de cada ejercicio, pide al alumnado ejecutar:
-
-```bash
-git status
-git log --oneline --graph --all
-```
-
-La visualización del historial es más importante que memorizar comandos.
