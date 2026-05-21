@@ -2,7 +2,7 @@
 
 Esta sección contiene ejercicios adicionales para reforzar Git con situaciones habituales de trabajo real.
 
-No es imprescindible para una primera toma de contacto, pero sí es muy recomendable para que el alumnado gane seguridad en escenarios cotidianos:
+No es imprescindible para una primera toma de contacto, pero sí es muy recomendable para ganar seguridad en escenarios cotidianos:
 
 - guardar trabajo temporalmente sin hacer commit,
 - recuperar commits aparentemente perdidos,
